@@ -6,7 +6,7 @@ IFS=$'\n\t'
 
 #Install required bundles
 echo '——Install required bundles——'
-swupd bundle-add c-basic devpkg-libcap devpkg-libuv devpkg-nghttp2 devpkg-openssl devpkg-userspace-rcu git
+swupd bundle-add c-basic devpkg-libcap devpkg-libuv devpkg-nghttp2 devpkg-openssl devpkg-userspace-rcu
 
 #Clean swupd cache
 echo '——Clean swupd cache——'
@@ -26,7 +26,7 @@ cd bind9-*
 #Configure bind9
 echo '——Configure bind9——'
 autoreconf --install
-CC=clang CFLAGS='-O3 -flto=thin' LDFLAGS='-fuse-ld=lld' ./configure --prefix=PREFIX
+CC=clang CFLAGS='-O3 -flto=thin' LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight
 
 #Build bind9
 echo '——Build bind9——'
