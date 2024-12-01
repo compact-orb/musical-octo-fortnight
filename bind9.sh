@@ -7,7 +7,7 @@ IFS=$'\n\t'
 
 #Install required bundles
 echo 'Install required bundles'
-swupd bundle-add c-basic devpkg-libuv devpkg-nghttp2 devpkg-userspace-rcu git
+swupd bundle-add c-basic devpkg-libcap devpkg-libuv devpkg-nghttp2 devpkg-openssl devpkg-userspace-rcu git
 
 #Clean swupd cache
 echo 'Clean swupd cache'
