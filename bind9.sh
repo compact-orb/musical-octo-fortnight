@@ -21,7 +21,7 @@ cd bind9-*
 
 #Configure bind9
 autoreconf --install
-CC=clang CFLAGS='-O3 -flto' -LDFLAGS='-fuse-ld=lld' ./configure
+CC=clang CFLAGS='-O3 -flto' LDFLAGS='-fuse-ld=lld' ./configure
 
 #Build bind9
 make --jobs=$(nproc)
