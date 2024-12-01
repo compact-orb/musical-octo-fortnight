@@ -13,7 +13,7 @@ echo '——Clean swupd cache——'
 swupd clean --all
 
 #Build in /tmp
-echo 'Build in /tmp'
+echo '——Build in /tmp——'
 cd /tmp
 
 #Download bind9
