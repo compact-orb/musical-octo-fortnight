@@ -7,6 +7,9 @@ IFS=$'\n\t'
 #Install required bundles
 swupd bundle-add c-basic devpkg-libuv devpkg-nghttp2 devpkg-userspace-rcu git
 
+#Clean swupd cache
+swupd clean --all
+
 #Build in /tmp
 cd /tmp
 
