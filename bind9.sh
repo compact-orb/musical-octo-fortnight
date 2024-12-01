@@ -4,7 +4,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-#Install required packages
+#Install required bundles
 swupd bundle-add c-basic devpkg-libuv devpkg-nghttp2 devpkg-userspace-rcu git
 
 #Build in /tmp
