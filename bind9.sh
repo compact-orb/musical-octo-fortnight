@@ -29,7 +29,7 @@ cd bind9-*
 echo '——Configure bind9 with profile generation——'
 function configure {
     autoreconf --install
-    CC=clang CFLAGS="-O3 -flto $1" LDFLAGS='-fuse-ld=gold' ./configure --prefix=/opt/musical-octo-fortnight/usr
+    CC=clang CFLAGS="-O3 -flto=thin $1" LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
 }
 configure '-fprofile-instr-generate=/tmp/profile.profraw'
 
