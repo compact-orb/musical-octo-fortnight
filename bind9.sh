@@ -26,7 +26,7 @@ cd bind9-*
 #Configure bind9
 echo '——Configure bind9——'
 autoreconf --install
-CC=clang CFLAGS='-O3 -flto=thin' LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight
+CC=clang CFLAGS='-O3 -flto=thin' LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
 
 #Build bind9
 echo '——Build bind9——'
