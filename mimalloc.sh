@@ -25,7 +25,7 @@ cd mimalloc-*
 
 #Configure mimalloc
 echo '——Configure mimalloc——'
-CC=clang CFLAGS='-O3 -flto=thin' CXX=clang++ CXXFLAGS=$CFLAGS LDFLAGS='-fuse-ld=lld' cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/musical-octo-fortnight/usr .
+CC=clang CFLAGS='-O3 -flto=thin' CXX=clang++ CXXFLAGS=$CFLAGS LDFLAGS='-fuse-ld=lld' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release .
 
 #Build mimalloc
 cmake --build . --parallel $(nproc)
