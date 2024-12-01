@@ -19,19 +19,55 @@ cd /tmp
 #Download bind9
 echo '——Download bind9——'
 curl --output Archive.tar.gz https://gitlab.isc.org/isc-projects/bind9/-/archive/v9.21.2/bind9-v9.21.2.tar.gz
+
+#Extract bind9
+echo '——Extract bind9——'
 tar --extract --file=Archive.tar.gz
-rm Archive.tar.gz
 cd bind9-*
 
-#Configure bind9
-echo '——Configure bind9——'
-autoreconf --install
-CC=clang CFLAGS='-O3 -flto=thin' LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
+#Configure bind9 with profile generation
+echo '——Configure bind9 with profile generation——'
+function configure {
+    autoreconf --install
+    CC=clang CFLAGS="-O3 -flto=thin $1" LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
+}
+configure '-fprofile-instr-generate=/tmp/profile.profraw'
 
-#Build bind9
-echo '——Build bind9——'
+#Build bind9 with profile generation
+echo '——Build bind9 with profile generation——'
 make --jobs=$(nproc)
 
-#Install bind9
-echo '——Install bind9——'
+#Install bind9 with profile generation
+echo '——Install bind9 with profile generation——'
 make install
+cd ..
+rm --recursive --force bind9-*
+
+#Run test workload
+echo '——Run test workload——'
+/opt/musical-octo-fortnight/usr/sbin/named -v #Placeholder
+llvm-profdata merge -output=/tmp/profile.profdata /tmp/profile.profraw
+rm --force /tmp/profile.profraw
+
+#Uninstall bind9 with profile generation
+echo '——Uninstall bind9 with profile generation——'
+rm --recursive --force /opt/musical-octo-fortnight/usr
+
+#Extract bind9
+echo '——Extract bind9——'
+tar --extract --file=Archive.tar.gz
+cd bind9-*
+
+#Configure bind9 with profile use
+echo '——Configure bind9 with profile use——'
+configure '-fprofile-instr-use=/tmp/profile.profdata'
+
+#Build bind9 with profile use
+echo '——Build bind9 with profile use——'
+make --jobs=$(nproc)
+
+#Install bind9 with profile use
+echo '——Install bind9 with profile use——'
+make install
+cd ..
+rm --recursive --force bind9-*
