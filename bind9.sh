@@ -289,10 +289,10 @@ options {
 				zone rpz.oisd.nl.;
 		};
 		forwarders {
-                8.8.8.8;
-                8.8.4.4;
-        };
-        forward only;
+				8.8.8.8;
+				8.8.4.4;
+		};
+		forward only;
 };
 zone rpz.oisd.nl. {
 		type primary;
