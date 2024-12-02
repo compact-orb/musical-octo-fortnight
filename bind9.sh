@@ -284,7 +284,7 @@ zone rpz.oisd.nl. {
 
 #Run test
 echo '——Run test——'
-nice --adjustment='-10' /opt/musical-octo-fortnight/usr/sbin/named -f &
+/opt/musical-octo-fortnight/usr/sbin/named -f &
 NAMED_PID=$!
 sleep 2
 dns_lookup() {
