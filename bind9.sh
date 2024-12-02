@@ -1110,13 +1110,13 @@ echo '——Run test——'
 NAMED_PID=$!
 sleep 2
 dns_lookup() {
-	while read -r domain
+	echo "$domains" | while read -r domain
 	do
 		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 a $@ "$domain" &>/dev/null
 		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 aaaa $@ "$domain" &>/dev/null
 		/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain" &>/dev/null
 		/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain" &>/dev/null
-	done < $domains
+	done
 }
 dns_lookup +dnssec
 dns_lookup +dnssec +https
