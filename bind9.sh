@@ -312,15 +312,15 @@ dns_lookup() {
 }
 while read domain
 do
-	dns_lookup +dnssec
+	dns_lookup '+dnssec'
 done < /tmp/document.csv
 while read domain
 do
-	dns_lookup +dnssec +https
+	dns_lookup '+dnssec +https'
 done < /tmp/document.csv
 while read domain
 do
-	dns_lookup +dnssec +tls
+	dns_lookup '+dnssec +tls'
 done < /tmp/document.csv
 kill $NAMED_PID
 unset NAMED_PID
