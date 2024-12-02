@@ -307,20 +307,20 @@ echo '——Run test——'
 NAMED_PID=$!
 sleep 4
 dns_lookup() {
-	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $1 "$domain"
-	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $1 "$domain"
+	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain"
+	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain"
 }
 while read -r domain
 do
-	dns_lookup '+dnssec'
+	dns_lookup +dnssec
 done < /tmp/document.csv
 while read -r domain
 do
-	dns_lookup '+dnssec +https'
+	dns_lookup +dnssec +https
 done < /tmp/document.csv
 while read -r domain
 do
-	dns_lookup '+dnssec +tls'
+	dns_lookup +dnssec +tls
 done < /tmp/document.csv
 kill $NAMED_PID
 unset NAMED_PID
