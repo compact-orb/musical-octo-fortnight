@@ -69,10 +69,10 @@ make --jobs=$(nproc)
 #Install bind9 with profile use
 echo '——Install bind9 with profile use——'
 make install
+rm --force /tmp/profile.profdata
 cd ..
 rm --recursive --force bind9-*
 
 #Clean up
 echo '——Clean up——'
 rm --force Archive.tar.gz
-rm --force /tmp/profile.profdata
