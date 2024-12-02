@@ -323,7 +323,7 @@ while read domain
 do
 	dns_lookup +tls
 done < /tmp/document.csv
-kill --signal=SIGINT $NAMED_PID
+kill $NAMED_PID
 unset NAMED_PID
 rm --recursive --force /opt/musical-octo-fortnight/usr/etc /tmp/certificate.pem /tmp/document.csv /tmp/key.key /tmp/named /tmp/named.root /tmp/oisd_big_rpz.txt
 llvm-profdata merge -output=/tmp/profile.profdata /tmp/profile.profraw
