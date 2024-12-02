@@ -1,0 +1,12 @@
+name: CI
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: clearlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run bind9 build script
+        run: ./bind9.sh
