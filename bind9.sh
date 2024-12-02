@@ -271,34 +271,34 @@ mkdir /tmp/named
 mkdir /opt/musical-octo-fortnight/usr/etc
 echo '——Install test——'
 echo 'tls ecc {
-		key-file "/tmp/key.key";
-		cert-file "/tmp/certificate.pem";
+	key-file "/tmp/key.key";
+	cert-file "/tmp/certificate.pem";
 };
 options {
-		directory "/tmp/named";
-		version "not currently available";
-		recursion yes;
-		listen-on { ::1; };
-		listen-on-v6 { ::1; };
-		dnssec-validation auto;
-		listen-on tls ecc { ::1; };
-		listen-on-v6 tls ecc { ::1; };
-		listen-on tls ecc http default { ::1; };
-		listen-on-v6 tls ecc http default { ::1; };
-		response-policy {
-				zone rpz.oisd.nl.;
-		};
-		forwarders {
-				8.8.8.8;
-				8.8.4.4;
-		};
-		forward only;
+	directory "/tmp/named";
+	version "not currently available";
+	recursion yes;
+	listen-on { ::1; };
+	listen-on-v6 { ::1; };
+	dnssec-validation auto;
+	listen-on tls ecc { ::1; };
+	listen-on-v6 tls ecc { ::1; };
+	listen-on tls ecc http default { ::1; };
+	listen-on-v6 tls ecc http default { ::1; };
+	response-policy {
+			zone rpz.oisd.nl.;
+	};
+	forwarders {
+			8.8.8.8;
+			8.8.4.4;
+	};
+	forward only;
 };
 zone rpz.oisd.nl. {
-		type primary;
-		file "/tmp/oisd_big_rpz.txt";
-		allow-query { none; };
-		allow-transfer { none; };
+	type primary;
+	file "/tmp/oisd_big_rpz.txt";
+	allow-query { none; };
+	allow-transfer { none; };
 };' > /opt/musical-octo-fortnight/usr/etc/named.conf
 
 #Run test
