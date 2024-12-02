@@ -310,15 +310,15 @@ dns_lookup() {
 	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $1 "$domain" &>/dev/null
 	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $1 "$domain" &>/dev/null
 }
-while read domain
+while read -r domain
 do
 	dns_lookup '+dnssec'
 done < /tmp/document.csv
-while read domain
+while read -r domain
 do
 	dns_lookup '+dnssec +https'
 done < /tmp/document.csv
-while read domain
+while read -r domain
 do
 	dns_lookup '+dnssec +tls'
 done < /tmp/document.csv
