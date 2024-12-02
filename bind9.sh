@@ -313,15 +313,15 @@ dns_lookup() {
 }
 while read domain
 do
-	dns_lookup ''+tries=1024''
+	dns_lookup ''
 done < /tmp/document.csv
 while read domain
 do
-	dns_lookup +https +tries=1024
+	dns_lookup +https
 done < /tmp/document.csv
 while read domain
 do
-	dns_lookup +tls +tries=1024
+	dns_lookup +tls
 done < /tmp/document.csv
 kill --signal=SIGINT $NAMED_PID
 unset NAMED_PID
