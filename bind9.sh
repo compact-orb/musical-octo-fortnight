@@ -44,8 +44,27 @@ cd ..
 rm --recursive --force bind9-*
 
 #Install test
-echo $COMPACT_ORB_ECC_KEY > /tmp/key.key
-echo $COMPACT_ORB_ECC_PEM > /tmp/certificate.pem
+echo '-----BEGIN EC PARAMETERS-----
+BggqhkjOPQMBBw==
+-----END EC PARAMETERS-----
+-----BEGIN EC PRIVATE KEY-----
+MHcCAQEEIIXQEDKf3CdxmcIlucNIgaoMfBFIKZ9Jr3Sv1f8m/SB0oAoGCCqGSM49
+AwEHoUQDQgAEHZSrrwnZonun04nRD6lDlkKNdujRf9YePBGU3rE9vPfQ/vRLsMAP
+coKguPSUDo8ZLHrJsI/ZUt0iMN29XKbgRQ==
+-----END EC PRIVATE KEY-----' > /tmp/key.key
+echo '-----BEGIN CERTIFICATE-----
+MIIB3jCCAYWgAwIBAgIUfR70H8RLkOqgTTXooV+z/jAFu8EwCgYIKoZIzj0EAwIw
+RTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGElu
+dGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yNDEyMDIwNTA2MjNaFw0yNDEyMDMw
+NTA2MjNaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYD
+VQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwWTATBgcqhkjOPQIBBggqhkjO
+PQMBBwNCAAQdlKuvCdmie6fTidEPqUOWQo126NF/1h48EZTesT2899D+9EuwwA9y
+gqC49JQOjxksesmwj9lS3SIw3b1cpuBFo1MwUTAdBgNVHQ4EFgQUABV/xiBYnZxy
+Lez3d/IL7tTEgzswHwYDVR0jBBgwFoAUABV/xiBYnZxyLez3d/IL7tTEgzswDwYD
+VR0TAQH/BAUwAwEB/zAKBggqhkjOPQQDAgNHADBEAiAU6oMXxtwigklpoSklqIEZ
+n4q5eQifvMSo4SzLJDYczwIgfEqJYvSRTqcwhzCCnXSzJ7CHbnqKpx0h7d5jNNWV
+Xrw=
+-----END CERTIFICATE-----'> /tmp/certificate.pem
 curl --output /tmp/named.root https://www.internic.net/domain/named.root
 curl --output /tmp/oisd_big_rpz.txt https://big.oisd.nl/rpz
 echo '2mdn.net
@@ -294,7 +313,7 @@ dns_lookup() {
 }
 while read domain
 do
-	dns_lookup +tries=1024
+	dns_lookup ''+tries=1024''
 done < /tmp/document.csv
 while read domain
 do
