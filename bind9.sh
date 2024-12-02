@@ -307,23 +307,17 @@ echo '——Run test——'
 NAMED_PID=$!
 sleep 2
 dns_lookup() {
-	/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 a $@ "$domain" &>/dev/null
-	/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 aaaa $@ "$domain" &>/dev/null
-	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain" &>/dev/null
-	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain" &>/dev/null
+	while read -r domain
+	do
+		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 a $@ "$domain" &>/dev/null
+		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 aaaa $@ "$domain" &>/dev/null
+		/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain" &>/dev/null
+		/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain" &>/dev/null
+	done < /tmp/document.csv
 }
-while read -r domain
-do
-	dns_lookup a +dnssec
-done < /tmp/document.csv
-while read -r domain
-do
-	dns_lookup +dnssec +https
-done < /tmp/document.csv
-while read -r domain
-do
-	dns_lookup +dnssec +tls
-done < /tmp/document.csv
+dns_lookup +dnssec
+dns_lookup +dnssec +https
+dns_lookup +dnssec +tls
 kill $NAMED_PID
 unset NAMED_PID
 rm --recursive --force /opt/musical-octo-fortnight/usr/etc /tmp/certificate.pem /tmp/document.csv /tmp/key.key /tmp/named /tmp/named.root /tmp/oisd_big_rpz.txt
