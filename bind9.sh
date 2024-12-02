@@ -259,21 +259,17 @@ options {
 		directory "/tmp/named";
 		version "not currently available";
 		recursion yes;
-		allow-recursion { any; };
-		listen-on { any; };
-		listen-on-v6 { any; };
+		allow-recursion { ::1; };
+		listen-on { ::1; };
+		listen-on-v6 { ::1; };
 		dnssec-validation auto;
-		listen-on tls ecc { any; };
-		listen-on-v6 tls ecc { any; };
-		listen-on tls ecc http default { any; };
-		listen-on-v6 tls ecc http default { any; };
+		listen-on tls ecc { ::1; };
+		listen-on-v6 tls ecc { ::1; };
+		listen-on tls ecc http default { ::1; };
+		listen-on-v6 tls ecc http default { ::1; };
 		response-policy {
 				zone rpz.oisd.nl.;
 		};
-};
-zone . {
-		type hint;
-		file "/tmp/named.root";
 };
 zone rpz.oisd.nl. {
 		type primary;
