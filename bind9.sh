@@ -278,12 +278,12 @@ options {
 	directory "/tmp/named";
 	version "not currently available";
 	recursion yes;
-	listen-on { ::1; };
+	listen-on { 127.0.0.1; };
 	listen-on-v6 { ::1; };
 	dnssec-validation auto;
-	listen-on tls ecc { ::1; };
+	listen-on tls ecc { 127.0.0.1; };
 	listen-on-v6 tls ecc { ::1; };
-	listen-on tls ecc http default { ::1; };
+	listen-on tls ecc http default { 127.0.0.1; };
 	listen-on-v6 tls ecc http default { ::1; };
 	response-policy {
 			zone rpz.oisd.nl.;
@@ -307,12 +307,14 @@ echo '——Run test——'
 NAMED_PID=$!
 sleep 2
 dns_lookup() {
+	/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 a $@ "$domain" &>/dev/null
+	/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 aaaa $@ "$domain" &>/dev/null
 	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain" &>/dev/null
 	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain" &>/dev/null
 }
 while read -r domain
 do
-	dns_lookup +dnssec
+	dns_lookup a +dnssec
 done < /tmp/document.csv
 while read -r domain
 do
