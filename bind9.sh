@@ -335,6 +335,7 @@ rm --recursive --force /opt/musical-octo-fortnight/usr
 #Extract bind9
 echo '——Extract bind9——'
 tar --extract --file=Archive.tar.gz
+rm --force Archive.tar.gz
 cd bind9-*
 
 #Configure bind9 with profile use
@@ -351,7 +352,3 @@ make install
 rm --force /tmp/profile.profdata
 cd ..
 rm --recursive --force bind9-*
-
-#Clean up
-echo '——Clean up——'
-rm --force Archive.tar.gz
