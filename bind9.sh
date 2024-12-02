@@ -18,7 +18,7 @@ cd /tmp
 
 #Download bind9
 echo '——Download bind9——'
-curl --output Archive.tar.gz https://gitlab.isc.org/isc-projects/bind9/-/archive/v9.21.2/bind9-v9.21.2.tar.gz
+curl --fail --output Archive.tar.gz https://gitlab.isc.org/isc-projects/bind9/-/archive/v9.21.2/bind9-v9.21.2.tar.gz
 
 #Extract bind9
 echo '——Extract bind9——'
@@ -65,8 +65,8 @@ VR0TAQH/BAUwAwEB/zAKBggqhkjOPQQDAgNHADBEAiAU6oMXxtwigklpoSklqIEZ
 n4q5eQifvMSo4SzLJDYczwIgfEqJYvSRTqcwhzCCnXSzJ7CHbnqKpx0h7d5jNNWV
 Xrw=
 -----END CERTIFICATE-----'> /tmp/certificate.pem
-curl --output /tmp/named.root https://www.internic.net/domain/named.root
-curl --output /tmp/oisd_big_rpz.txt https://big.oisd.nl/rpz
+curl --fail --output /tmp/named.root https://www.internic.net/domain/named.root
+curl --fail --output /tmp/oisd_big_rpz.txt https://big.oisd.nl/rpz
 echo '2mdn.net
 3gppnetwork.org
 3lift.com
