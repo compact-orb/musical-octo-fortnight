@@ -70,7 +70,7 @@ curl --fail --output /tmp/oisd_big_rpz.txt https://big.oisd.nl/rpz
 #Data from https://radar.cloudflare.com/domains
 #Top 1000 domains
 #Updated: Dec 2, 2024
-echo '163.com
+domains='163.com
 1drv.com
 1rx.io
 2mdn.net
@@ -1069,7 +1069,7 @@ zijieapi.com
 zoho.com
 zoom.us
 zopim.com
-zpath.net' > /tmp/document.csv
+zpath.net'
 mkdir /tmp/named
 mkdir /opt/musical-octo-fortnight/usr/etc
 echo '——Install test——'
@@ -1116,7 +1116,7 @@ dns_lookup() {
 		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 aaaa $@ "$domain" &>/dev/null
 		/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain" &>/dev/null
 		/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain" &>/dev/null
-	done < /tmp/document.csv
+	done < $domains
 }
 dns_lookup +dnssec
 dns_lookup +dnssec +https
