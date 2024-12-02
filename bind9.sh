@@ -64,7 +64,7 @@ Lez3d/IL7tTEgzswHwYDVR0jBBgwFoAUABV/xiBYnZxyLez3d/IL7tTEgzswDwYD
 VR0TAQH/BAUwAwEB/zAKBggqhkjOPQQDAgNHADBEAiAU6oMXxtwigklpoSklqIEZ
 n4q5eQifvMSo4SzLJDYczwIgfEqJYvSRTqcwhzCCnXSzJ7CHbnqKpx0h7d5jNNWV
 Xrw=
------END CERTIFICATE-----'> /tmp/certificate.pem
+-----END CERTIFICATE-----' > /tmp/certificate.pem
 curl --fail --output /tmp/named.root https://www.internic.net/domain/named.root
 curl --fail --output /tmp/oisd_big_rpz.txt https://big.oisd.nl/rpz
 echo '2mdn.net
