@@ -10,3 +10,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run bind9 build script
         run: ./bind9.sh
+        env:
+          COMPACT_ORB_ECC_KEY: ${{ secrets.COMPACT_ORB_ECC_KEY }}
+          COMPACT_ORB_ECC_PEM: ${{ secrets.COMPACT_ORB_ECC_PEM }}
