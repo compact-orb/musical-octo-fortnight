@@ -307,8 +307,8 @@ echo '——Run test——'
 NAMED_PID=$!
 sleep 2
 dns_lookup() {
-	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain"
-	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain"
+	/opt/musical-octo-fortnight/usr/bin/dig @::1 a $@ "$domain" &>/dev/null
+	/opt/musical-octo-fortnight/usr/bin/dig @::1 aaaa $@ "$domain" &>/dev/null
 }
 while read -r domain
 do
