@@ -258,8 +258,7 @@ echo 'tls ecc {
 options {
 		directory "/tmp/named";
 		version "not currently available";
-		recursion yes;
-		allow-recursion { ::1; };
+		recursion no;
 		listen-on { ::1; };
 		listen-on-v6 { ::1; };
 		dnssec-validation auto;
@@ -270,6 +269,11 @@ options {
 		response-policy {
 				zone rpz.oisd.nl.;
 		};
+		forwarders {
+                8.8.8.8;
+                8.8.4.4;
+        };
+        forward only;
 };
 zone rpz.oisd.nl. {
 		type primary;
