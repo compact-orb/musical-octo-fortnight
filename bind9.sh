@@ -277,7 +277,7 @@ echo 'tls ecc {
 options {
 		directory "/tmp/named";
 		version "not currently available";
-		recursion no;
+		recursion yes;
 		listen-on { ::1; };
 		listen-on-v6 { ::1; };
 		dnssec-validation auto;
