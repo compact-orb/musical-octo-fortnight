@@ -1,20 +1,25 @@
 #!/usr/bin/bash
 
-#Bash strict mode
-set -euo pipefail
+#Modified unofficial Bash strict mode
+set -eo pipefail
 IFS=$'\n\t'
-
-#Install required bundles
-echo '——Install required bundles——'
-swupd bundle-add c-basic devpkg-libcap devpkg-libuv devpkg-nghttp2 devpkg-openssl devpkg-userspace-rcu
-
-#Clean swupd cache
-echo '——Clean swupd cache——'
-swupd clean --all
 
 #Build in /tmp
 echo '——Build in /tmp——'
 cd /tmp
+
+#Install required bundles
+echo '——Install required bundles——'
+swupd bundle-add c-basic devpkg-libcap devpkg-libuv devpkg-nghttp2 devpkg-openssl devpkg-userspace-rcu
+swupd clean --all
+curl --fail --output intel-dpcpp-cpp-compiler-2025.0.3.9.sh https://registrationcenter-download.intel.com/akdlm/IRC_NAS/1cac4f39-2032-4aa9-86d7-e4f3e40e4277/intel-dpcpp-cpp-compiler-2025.0.3.9.sh
+chmod +x intel-dpcpp-cpp-compiler-2025.0.3.9.sh
+./intel-dpcpp-cpp-compiler-2025.0.3.9.sh -a --eula accept --silent
+rm --force intel-dpcpp-cpp-compiler-2025.0.3.9.sh
+
+#Set Intel DPC++ environment variables
+echo '——Set Intel DPC++ environment variables——'
+source /opt/intel/oneapi/setvars.sh --include-intel-llvm
 
 #Download bind9
 echo '——Download bind9——'
@@ -29,9 +34,9 @@ cd bind9-*
 echo '——Configure bind9 with profile generation——'
 function configure {
 	autoreconf --install
-	CC=clang CFLAGS="-O3 -flto=thin -march=x86-64-v3 -mtune=haswell -pipe $1" LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
+	CC=icx CFLAGS="-O3 -flto=thin -ipo -march=x86-64-v3 -mtune=haswell -pipe $1" LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
 }
-configure '-fprofile-instr-generate=/tmp/profile.profraw'
+configure '-fprofile-instr-generate=../profile.profraw'
 
 #Build bind9 with profile generation
 echo '——Build bind9 with profile generation——'
@@ -1124,8 +1129,8 @@ dns_lookup +dnssec +tls
 kill $NAMED_PID
 unset NAMED_PID
 rm --recursive --force /opt/musical-octo-fortnight/usr/etc /tmp/certificate.pem /tmp/document.csv /tmp/key.key /tmp/named /tmp/named.root /tmp/oisd_big_rpz.txt
-llvm-profdata merge -output=/tmp/profile.profdata /tmp/profile.profraw
-rm --force /tmp/profile.profraw
+llvm-profdata merge -output=../profile.profdata ../profile.profraw
+rm --force ../profile.profraw
 
 #Uninstall bind9 with profile generation
 echo '——Uninstall bind9 with profile generation——'
@@ -1139,7 +1144,7 @@ cd bind9-*
 
 #Configure bind9 with profile use
 echo '——Configure bind9 with profile use——'
-configure '-fprofile-instr-use=/tmp/profile.profdata'
+configure '-fprofile-instr-use=../profile.profdata'
 
 #Build bind9 with profile use
 echo '——Build bind9 with profile use——'
@@ -1148,6 +1153,6 @@ make --jobs=$(nproc)
 #Install bind9 with profile use
 echo '——Install bind9 with profile use——'
 make install
-rm --force /tmp/profile.profdata
+rm --force ../profile.profdata
 cd ..
 rm --recursive --force bind9-*
