@@ -77,7 +77,7 @@ curl --fail --output /tmp/oisd_big_rpz.txt https://big.oisd.nl/rpz
 #Data from https://radar.cloudflare.com/domains
 #Top 1000 domains
 #Updated: Dec 2, 2024
-domains='163.com
+DOMAINS='163.com
 1drv.com
 1rx.io
 2mdn.net
@@ -1116,7 +1116,7 @@ echo '——Run test——'
 NAMED_PID=$!
 sleep 2
 dns_lookup() {
-	echo "$domains" | while read -r domain
+	echo "$DOMAINS" | while read -r domain
 	do
 		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 a $@ "$domain" &>/dev/null
 		/opt/musical-octo-fortnight/usr/bin/dig @127.0.0.1 aaaa $@ "$domain" &>/dev/null
