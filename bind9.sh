@@ -44,6 +44,7 @@ cd ..
 rm --recursive --force bind9-*
 
 #Install test
+echo '——Install test——'
 echo '-----BEGIN EC PARAMETERS-----
 BggqhkjOPQMBBw==
 -----END EC PARAMETERS-----
@@ -1072,7 +1073,6 @@ zopim.com
 zpath.net'
 mkdir /tmp/named
 mkdir /opt/musical-octo-fortnight/usr/etc
-echo '——Install test——'
 echo 'tls ecc {
 	key-file "/tmp/key.key";
 	cert-file "/tmp/certificate.pem";
