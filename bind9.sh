@@ -1129,7 +1129,7 @@ dns_lookup +dnssec +tls
 kill $NAMED_PID
 unset NAMED_PID
 rm --recursive --force /opt/musical-octo-fortnight/usr/etc /tmp/certificate.pem /tmp/document.csv /tmp/key.key /tmp/named /tmp/named.root /tmp/oisd_big_rpz.txt
-llvm-profdata merge -output=../profile.profdata ../profile.profraw
+llvm-profdata merge -output=profile.profdata profile.profraw
 rm --force ../profile.profraw
 
 #Uninstall bind9 with profile generation
