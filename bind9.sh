@@ -37,7 +37,7 @@ function configure {
 	autoreconf --install
 	CC=icx CFLAGS="-O3 -flto=thin -ipo -march=x86-64-v3 -mtune=haswell -pipe $1" LDFLAGS='-fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
 }
-configure "-fprofile-instr-generate=$BUILD_DIR"
+configure "-fprofile-instr-generate=$BUILD_DIR/profile.profraw"
 
 #Build bind9 with profile generation
 echo '——Build bind9 with profile generation——'
@@ -1145,7 +1145,7 @@ cd bind9-*
 
 #Configure bind9 with profile use
 echo '——Configure bind9 with profile use——'
-configure "-fprofile-instr-use=$BUILD_DIR"
+configure "-fprofile-instr-use=$BUILD_DIR/profile.profdata"
 
 #Build bind9 with profile use
 echo '——Build bind9 with profile use——'
