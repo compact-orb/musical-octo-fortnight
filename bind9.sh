@@ -35,7 +35,7 @@ cd bind9-*
 echo '——Configure bind9 with profile generation——'
 function configure {
 	autoreconf --install
-	CC=icx CFLAGS="-D_FORTIFY_SOURCE=3 -O3 -fcf-protection -flto=thin -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell -pipe $1" LDFLAGS='-Wl,-z,now -fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
+	CC=icx CFLAGS="-D_FORTIFY_SOURCE=3 -O3 -fcf-protection -flto=thin -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell -pipe $1" LDFLAGS='-Wl,-z,now -Wl,-z,relro -fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
 }
 configure "-fprofile-instr-generate=$BUILD_DIR/profile.profraw"
 
