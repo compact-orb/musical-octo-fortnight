@@ -4,6 +4,9 @@
 set -eo pipefail
 IFS=$'\n\t'
 
+#Use global profile
+. /usr/share/defaults/etc/profile
+
 #Build in /tmp
 echo '——Build in /tmp——'
 BUILD_DIR=/tmp
