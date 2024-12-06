@@ -1,0 +1,12 @@
+name: bind9
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    container:
+      image: clearlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run mimalloc build script
+        run: ./mimalloc.sh
