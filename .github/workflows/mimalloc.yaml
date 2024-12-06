@@ -1,4 +1,4 @@
-name: bind9
+name: mimalloc
 on:
   workflow_dispatch:
 jobs:
