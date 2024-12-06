@@ -5,7 +5,7 @@ set -eo pipefail
 IFS=$'\n\t'
 
 #Use global profile
-. /usr/share/defaults/etc/profile
+#. /usr/share/defaults/etc/profile
 
 #Build in /tmp
 echo '——Build in /tmp——'
@@ -37,7 +37,7 @@ cd mimalloc-*
 
 #Configure mimalloc
 echo '——Configure mimalloc——'
-CC=icx CFLAGS="$(echo "$CFLAGS" | sed 's/-\(feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -fcf-protection -flto=thin -fpic -fpie -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell" CXX=icpx CXXFLAGS="$(echo "$CXXFLAGS" | sed 's/-\(Wl,--enable-new-dtags\|feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -D_GLIBCXX_ASSERTIONS -fcf-protection -flto=thin -fpic -fpie -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell" LDFLAGS='-Wl,--as-needed -fuse-ld=lld -rtlib=compiler-rt -unwindlib=libunwind' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
+CC=icx CXX=icpx cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
 
 #Build mimalloc
 echo '——Build mimalloc——'
