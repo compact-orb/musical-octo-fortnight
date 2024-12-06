@@ -1130,6 +1130,7 @@ dns_lookup() {
 dns_lookup +dnssec
 dns_lookup +dnssec +https
 dns_lookup +dnssec +tls
+unset DOMAINS
 kill $NAMED_PID
 unset NAMED_PID
 rm --recursive --force /opt/musical-octo-fortnight/usr/etc /tmp/certificate.pem /tmp/document.csv /tmp/key.key /tmp/named /tmp/named.root /tmp/oisd_big_rpz.txt
