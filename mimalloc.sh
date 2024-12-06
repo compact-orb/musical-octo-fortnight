@@ -37,7 +37,7 @@ cd mimalloc-*
 
 #Configure mimalloc
 echo '——Configure mimalloc——'
-CC=icx CFLAGS="$(echo "$CFLAGS" | sed 's/-\(feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -flto=thin" CXX=icpx CXXFLAGS="$(echo "$CXXFLAGS" | sed 's/-\(Wl,--enable-new-dtags\|feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -flto=thin" LDFLAGS='-Wl,--as-needed -fuse-ld=lld -rtlib=compiler-rt' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
+CC=icx CFLAGS="$(echo "$CFLAGS" | sed 's/-\(fno-semantic-interposition\|feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -flto=thin" CXX=icpx CXXFLAGS="$(echo "$CXXFLAGS" | sed 's/-\(fno-semantic-interposition\|Wl,--enable-new-dtags\|feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -flto=thin" LDFLAGS='-Wl,--as-needed -fuse-ld=lld -rtlib=compiler-rt' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
 
 #Build mimalloc
 echo '——Build mimalloc——'
