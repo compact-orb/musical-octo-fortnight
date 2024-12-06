@@ -5,7 +5,7 @@ set -eo pipefail
 IFS=$'\n\t'
 
 #Use global profile
-#. /usr/share/defaults/etc/profile
+. /usr/share/defaults/etc/profile
 
 #Build in /tmp
 echo '——Build in /tmp——'
@@ -14,7 +14,7 @@ cd $BUILD_DIR
 
 #Install required bundles
 echo '——Install required bundles——'
-swupd bundle-add c-basic devpkg-libunwind
+swupd bundle-add c-basic
 swupd clean --all
 curl --fail --output intel-dpcpp-cpp-compiler-2025.0.3.9.sh https://registrationcenter-download.intel.com/akdlm/IRC_NAS/1cac4f39-2032-4aa9-86d7-e4f3e40e4277/intel-dpcpp-cpp-compiler-2025.0.3.9.sh
 chmod +x intel-dpcpp-cpp-compiler-2025.0.3.9.sh
@@ -37,7 +37,7 @@ cd mimalloc-*
 
 #Configure mimalloc
 echo '——Configure mimalloc——'
-CC=icx CXX=icpx cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
+CC=icx CFLAGS="$(echo "$CFLAGS" | sed 's/-\(Wl,-sort-common\|Wl,-z,relro\|Wl,-z,now\|feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -fcf-protection -flto=thin -fpic -fpie -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell" CXX=icpx CXXFLAGS="$(echo "$CXXFLAGS" | sed 's/-\(Wl,-sort-common\|Wl,-z,relro\|Wl,-z,now\|Wl,--enable-new-dtags\|feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -D_GLIBCXX_ASSERTIONS -fcf-protection -flto=thin -fpic -fpie -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell" LDFLAGS='-Wl,--as-needed -fuse-ld=lld -rtlib=compiler-rt' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
 
 #Build mimalloc
 echo '——Build mimalloc——'
