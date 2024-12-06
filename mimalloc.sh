@@ -37,7 +37,7 @@ cd mimalloc-*
 
 #Configure mimalloc
 echo '——Configure mimalloc——'
-CC=icx CFLAGS="-flto=thin" CXX=icpx CXXFLAGS="-flto=thin" LDFLAGS='-Wl,--as-needed -fuse-ld=lld -rtlib=compiler-rt' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
+CC=icx CFLAGS="-flto=thin" CXX=icpx CXXFLAGS="-flto=thin" LDFLAGS='-fuse-ld=lld' cmake --install-prefix /opt/musical-octo-fortnight/usr -DCMAKE_BUILD_TYPE=Release -DMI_SECURE=ON .
 
 #Build mimalloc
 echo '——Build mimalloc——'
