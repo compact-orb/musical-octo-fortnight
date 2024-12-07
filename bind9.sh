@@ -19,11 +19,11 @@ PACKAGE_ARCHITECTURE=$2
 echo "——Package architecture: $PACKAGE_ARCHITECTURE——"
 
 #Set package name
-PACKAGE_NAME=$3
+PACKAGE_NAME=bind9
 echo "——Package name: $PACKAGE_NAME——"
 
 #Set package version
-PACKAGE_VERSION=$4
+PACKAGE_VERSION=$3
 echo "——Package version: $PACKAGE_VERSION——"
 
 #Set package date
@@ -1193,6 +1193,6 @@ cd /opt/musical-octo-fortnight
 tar --create --to-stdout usr | zstd -22 --ultra -T0 --auto-threads=logical - -o $OLDPWD/$PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd
 cd -
 rm --recursive --force /opt/musical-octo-fortnight
-./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$5" --secret-key "$6" --token "$7" mv $PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
+./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$4" --secret-key "$5" --token "$6" mv $PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
 echo $PACKAGE_VERSION-$PACKAGE_DATE > $PACKAGE_NAME-latest.txt
-./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$5" --secret-key "$6" --token "$7" mv $PACKAGE_NAME-latest.txt cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
+./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$4" --secret-key "$5" --token "$6" mv $PACKAGE_NAME-latest.txt cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
