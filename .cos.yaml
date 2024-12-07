@@ -1,0 +1,8 @@
+cos:
+  base:
+    protocol: https
+    mode: SecretKey
+  buckets:
+  - name: m-o-f-1332147884
+    alias: m-o-f-1332147884
+    endpoint: compact-orb.ovh

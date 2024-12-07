@@ -4,22 +4,47 @@
 set -eo pipefail
 IFS=$'\n\t'
 
+#Save repository directory
+REPOSITORY_DIR=$(pwd)
+
 #Use global profile
 . /usr/share/defaults/etc/profile
+
+#Set distribution
+PACKAGE_DISTRIBUTION=$1
+echo "——Package distribution: $PACKAGE_DISTRIBUTION——"
+
+#Set architecture
+PACKAGE_ARCHITECTURE=$2
+echo "——Package architecture: $PACKAGE_ARCHITECTURE——"
+
+#Set package name
+PACKAGE_NAME=$3
+echo "——Package name: $PACKAGE_NAME——"
+
+#Set package version
+PACKAGE_VERSION=$4
+echo "——Package version: $PACKAGE_VERSION——"
+
+#Set package date
+PACKAGE_DATE=$(date --utc +%Y%m%d%H%M%S)
+echo "——Package date: $PACKAGE_DATE——"
 
 #Build in /tmp
 echo '——Build in /tmp——'
 BUILD_DIR=/tmp
 cd $BUILD_DIR
 
-#Install required bundles
-echo '——Install required bundles——'
+#Install required dependencies
+echo '——Install required dependencies——'
 swupd bundle-add c-basic devpkg-libcap devpkg-libuv devpkg-nghttp2 devpkg-openssl devpkg-userspace-rcu
 swupd clean --all
 curl --fail --output intel-dpcpp-cpp-compiler-2025.0.3.9.sh https://registrationcenter-download.intel.com/akdlm/IRC_NAS/1cac4f39-2032-4aa9-86d7-e4f3e40e4277/intel-dpcpp-cpp-compiler-2025.0.3.9.sh
 chmod +x intel-dpcpp-cpp-compiler-2025.0.3.9.sh
 ./intel-dpcpp-cpp-compiler-2025.0.3.9.sh -a --eula accept --silent
 rm --force intel-dpcpp-cpp-compiler-2025.0.3.9.sh
+curl --fail --location --output coscli https://cosbrowser.cloud.tencent.com/software/coscli/coscli-linux-amd64
+chmod +x coscli
 
 #Set Intel DPC++ environment variables
 echo '——Set Intel DPC++ environment variables——'
@@ -27,7 +52,7 @@ source /opt/intel/oneapi/setvars.sh --include-intel-llvm
 
 #Download bind9
 echo '——Download bind9——'
-curl --fail --output Archive.tar.gz https://gitlab.isc.org/isc-projects/bind9/-/archive/v9.21.2/bind9-v9.21.2.tar.gz
+curl --fail --output Archive.tar.gz https://gitlab.isc.org/isc-projects/bind9/-/archive/v$PACKAGE_VERSION/bind9-v$PACKAGE_VERSION.tar.gz
 
 #Extract bind9
 echo '——Extract bind9——'
@@ -38,7 +63,7 @@ cd bind9-*
 echo '——Configure bind9 with profile generation——'
 function configure {
 	autoreconf --install
-	CC=icx CFLAGS="$(echo "$CFLAGS" | sed 's/-\(feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -fcf-protection -flto=thin -fpic -fpie -fstack-clash-protection -fstack-protector-strong -ipo -march=x86-64-v3 -mtune=haswell $1" LDFLAGS='-Wl,--as-needed -fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
+	CC=icx CFLAGS="$(echo "$CFLAGS" | sed 's/-\(feliminate-unused-debug-types\|ffat-lto-objects\|ftree-loop-distribute-patterns\|mrelax-cmpxchg-loop\)//g') -fcf-protection -flto=thin -fpic -fpie -fstack-clash-protection -fstack-protector-strong -ipo -march=$PACKAGE_ARCHITECTURE -mtune=haswell $1" LDFLAGS='-Wl,--as-needed -fuse-ld=lld' ./configure --prefix=/opt/musical-octo-fortnight/usr
 }
 configure "-fprofile-instr-generate=$BUILD_DIR/profile.profraw"
 
@@ -1161,3 +1186,13 @@ make install
 rm --force ../profile.profdata
 cd ..
 rm --recursive --force bind9-*
+
+#Package bind9
+echo '——Package bind9——'
+cd /opt/musical-octo-fortnight
+tar --create --to-stdout usr | zstd -22 --ultra -T0 --auto-threads=logical - -o -/$PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd
+cd -
+rm --recursive --force /opt/musical-octo-fortnight
+./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$5" --secret-key "$6" --token "$7" mv $PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
+echo $PACKAGE_VERSION-$PACKAGE_DATE > $PACKAGE_NAME-latest.txt
+./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$5" --secret-key "$6" --token "$7" mv $PACKAGE_NAME-latest.txt cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
