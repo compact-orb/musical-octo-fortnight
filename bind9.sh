@@ -1193,8 +1193,8 @@ cd /opt/musical-octo-fortnight
 tar --create --to-stdout usr | zstd -22 --ultra -T0 --auto-threads=logical - -o $OLDPWD/$PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd
 cd -
 rm --recursive --force /opt/musical-octo-fortnight
-./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$4" --secret-key "$5" --token "$6" cp $PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
+./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id $4 --secret-key $5 cp $PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
 rm $PACKAGE_NAME-$PACKAGE_VERSION-$PACKAGE_DATE.tar.zstd
 echo $PACKAGE_VERSION-$PACKAGE_DATE > $PACKAGE_NAME-latest.txt
-./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id "$4" --secret-key "$5" --token "$6" cp $PACKAGE_NAME-latest.txt cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
+./coscli --config-path $REPOSITORY_DIR/.cos.yaml --secret-id $4 --secret-key $5 cp $PACKAGE_NAME-latest.txt cos://m-o-f-1332147884/$PACKAGE_DISTRIBUTION/$PACKAGE_ARCHITECTURE/
 rm $PACKAGE_NAME-latest.txt

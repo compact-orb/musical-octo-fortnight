@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run bind9 build script
-        run: ./bind9.sh clear-linux-os x86-64-v3 9.21.2 "${{ secrets.SECRET_ID }}" "${{ secrets.SECRET_KEY }}" "${{ secrets.TOKEN }}"
+        run: ./bind9.sh clear-linux-os x86-64-v3 9.21.2 "${{ secrets.SECRET_ID }}" "${{ secrets.SECRET_KEY }}"
