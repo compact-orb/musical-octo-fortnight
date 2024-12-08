@@ -19,7 +19,7 @@ sudo apt --yes install python3-venv
 python -m venv venv
 source venv/bin/activate
 pip install certbot
-sudo ln --symbolic venv/bin/certbot /usr/local/bin/certbot
+sudo ln --symbolic /tmp/venv/bin/certbot /usr/local/bin/certbot
 
 #Generate certificates
 echo '——Generate certificates——'
