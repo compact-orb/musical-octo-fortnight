@@ -14,8 +14,12 @@ cd $BUILD_DIR
 
 #Install required dependencies
 echo '——Install required dependencies——'
-pip install --user certbot
-sudo ln --symbolic /home/codespace/.local/bin/certbot /usr/local/bin/certbot
+sudo apt update
+sudo apt --yes install python3-venv
+python -m venv venv
+source venv/bin/activate
+pip install certbot
+sudo ln --symbolic venv/bin/certbot /usr/local/bin/certbot
 
 #Generate certificates
 echo '——Generate certificates——'
@@ -30,3 +34,5 @@ generate-certificate "*.compact-orb.ovh"
 generate-certificate "*.compact-orb.ovh-rsa"
 echo -e $COMPACT_ORB_KEY > $REPOSITORY_DIR/server-authentication/compact-orb.key
 echo -e $COMPACT_ORB_RSA_KEY > $REPOSITORY_DIR/server-authentication/compact-orb-rsa.key
+deactivate
+rm --recursive venv
