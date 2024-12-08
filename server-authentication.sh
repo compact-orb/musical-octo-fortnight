@@ -24,7 +24,7 @@ sudo ln --symbolic /tmp/venv/bin/certbot /usr/local/bin/certbot
 #Generate certificates
 echo '——Generate certificates——'
 function generate-certificate {
-	sudo certbot certonly --agree-tos -m compact-orb@compact-orb.ovh --eab-kid $EAB_KID --eab-hmac-key $EAB_HMAC_KEY --preferred-challenges dns-01 --server https://acme.zerossl.com/v2/DV90 --csr "$1.csr" --no-eff-email --manual
+	sudo certbot certonly --agree-tos -m compact-orb@compact-orb.ovh --eab-kid $EAB_KID --eab-hmac-key $EAB_HMAC_KEY --preferred-challenges dns-01 --server https://acme.zerossl.com/v2/DV90 --csr "$REPOSITORY_DIR/$1.csr" --no-eff-email --manual
 	awk '/-----BEGIN CERTIFICATE-----/ {if (NR > 1) print cert; cert = $0; next} {cert = cert "\n" $0}' 0001_chain.pem > "$REPOSITORY_DIR/server-authentication/$1.crt"
 	sudo rm 000*.pem
 }
